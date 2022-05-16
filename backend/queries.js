@@ -66,7 +66,7 @@ const deleteCategory = (request, response) => {
   
    /* PRODUCTS */
 
-   const getProduct = (request, response) =>{
+const getProduct = (request, response) =>{
     pool.query('SELECT * FROM production.product ORDER by id ASC', (error, result)=>{
         if (error) {
             throw error
@@ -85,9 +85,9 @@ const getProductById = (request, response) =>{
 }
 
 const createProduct = (request, response) => {
-    const { name, price, stock } = request.body
+    const { name, price, stock, category_id } = request.body
     const now = new Date()
-    pool.query('INSERT INTO production.product (name, created_at, updated_at, price, stock) VALUES ($1, $2, $3, $4, $5) RETURNING id', [name, now, now, price, stock], (error, result) => {
+    pool.query('INSERT INTO production.product (name, created_at, updated_at, price, stock, category_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id', [name, now, now, price, stock, category_id], (error, result) => {
       if (error) {
         throw error
       }
@@ -122,6 +122,123 @@ const deleteProduct = (request, response) => {
     })
   }
 
+  /* USER */
+
+const getUser = (request, response) =>{
+    pool.query('SELECT * FROM "user"."user" ORDER by created_at DESC', (error, result)=>{
+        if (error) {
+            throw error
+        }
+        response.status(200).json(result.rows);
+    })
+}
+const getUserById = (request, response) =>{
+    const id = request.params.uuid
+    pool.query('SELECT * FROM "user"."user" WHERE id=$1',[id], (error, result)=>{
+        if (error) {
+            throw error
+        }
+        response.status(200).json(result.rows);
+    })
+}
+
+const createUser = (request, response) => {
+    const { username, password, role_id } = request.body
+    const now = new Date()
+    pool.query('INSERT INTO "user"."user" (username, created_at, updated_at, password, role_id) VALUES ($1, $2, $3, $4, $5) RETURNING id', [username, now, now, password, role_id], (error, result) => {
+      if (error) {
+        throw error
+      }
+      response.status(201).send(`User added with ID: ${result.rows[0].id}`)
+    })
+  }
+
+const updateUser = (request, response) => {
+    const id = request.params.uuid
+    const { password, role_id } = request.body
+    const now = new Date()
+    pool.query(
+      'UPDATE "user"."user" SET password = $1, role_id = $2, updated_at = $3  WHERE id = $4',
+      [password, role_id, now, id],
+      (error, result) => {
+        if (error) {
+          throw error
+        }
+        response.status(200).send(`User with ID: ${id} has been modified`)
+      }
+    )
+  }
+
+const deleteUser = (request, response) => {
+    const id = request.params.uuid
+    const now = new Date()
+    pool.query('UPDATE  "user"."user" SET deleted_at = $1 WHERE id = $2', [now,id], (error, results) => {
+      if (error) {
+        throw error
+      }
+      response.status(200).send(`User with ID: ${id} has been deleted`)
+    })
+  }
+
+  /* ROLE */
+
+  const getRole = (request, response) =>{
+    pool.query('SELECT * FROM "user"."role" ORDER by created_at DESC', (error, result)=>{
+        if (error) {
+            throw error
+        }
+        response.status(200).json(result.rows);
+    })
+}
+const getRoleById = (request, response) =>{
+    const id = parseInt(request.params.id)
+    pool.query('SELECT * FROM "user"."role" WHERE id=$1',[id], (error, result)=>{
+        if (error) {
+            throw error
+        }
+        response.status(200).json(result.rows);
+    })
+}
+
+const createRole = (request, response) => {
+    const { id, name } = request.body
+    const now = new Date()
+    pool.query('INSERT INTO "user"."role" (id, name, created_at, updated_at) VALUES ($1, $2, $3, $4) RETURNING id', [id, name, now, now], (error, result) => {
+      if (error) {
+        throw error
+      }
+      response.status(201).send(`Role added with ID: ${result.rows[0].id}`)
+    })
+  }
+
+const updateRoleById = (request, response) => {
+    const id = parseInt(request.params.id)
+    const { name } = request.body
+    const now = new Date()
+    console.log(name);
+    pool.query(
+      'UPDATE "user"."role" SET name = $1, updated_at = $2  WHERE id = $3',
+      [name, now, id],
+      (error, result) => {
+        if (error) {
+          throw error
+        }
+        response.status(200).send(`Role with ID: ${id} has been modified`)
+      }
+    )
+  }
+
+const deleteRole = (request, response) => {
+    const id = request.params.id
+    const now = new Date()
+    pool.query('UPDATE  "user"."role" SET deleted_at = $1 WHERE id = $2', [now,id], (error, results) => {
+      if (error) {
+        throw error
+      }
+      response.status(200).send(`Role with ID: ${id} has been deleted`)
+    })
+  }
+
 module.exports = {
     getCategory,
     getCategoryById,
@@ -133,5 +250,17 @@ module.exports = {
     getProductById,
     createProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+
+    getUser,
+    getUserById,
+    createUser,
+    updateUser,
+    deleteUser,
+
+    getRole,
+    getRoleById,
+    createRole,
+    updateRoleById,
+    deleteRole
   }
