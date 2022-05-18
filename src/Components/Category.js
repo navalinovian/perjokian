@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Categories from "./Categories";
 import { getAllCategories, createCategories } from "../Service/categoryService";
-import { getAllProduct } from "../Service/productService";
+import { getAllProducts } from "../Service/productService";
 const Category = () => {
     const [categories, setCategories] = useState([]);
     const [cart, setCart] = useState([]);
@@ -34,7 +34,7 @@ const Category = () => {
         }).catch((err)=>{
             console.log(err);
         })
-        getAllProduct().then((res)=>{
+        getAllProducts().then((res)=>{
             setProduct(res);
             console.log(res);
         }).catch((err)=>{
@@ -70,7 +70,7 @@ const Category = () => {
                     <div className="col-md-9">
                         <div className="row">
 
-                            <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div className="modal-dialog">
                                     <div className="modal-content">
                                         <div className="modal-header">

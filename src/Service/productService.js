@@ -1,4 +1,4 @@
-export async function getAllProduct() {
+export async function getAllProducts() {
     try{
         const response = await fetch('http://localhost:3000/product');
         // console.log(await response.json());
