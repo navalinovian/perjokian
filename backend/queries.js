@@ -8,8 +8,16 @@ const pool = new Pool({
 })
 /* PRODUCTION SCHEMA */
     /* CATEGORY */
+const getAllCategory = (request, response) =>{
+      pool.query('SELECT * FROM production.category ORDER by id DESC', (error, result)=>{
+          if (error) {
+              throw error
+          }
+          response.status(200).json(result.rows);
+      })
+  }
 const getCategory = (request, response) =>{
-    pool.query('SELECT * FROM production.category ORDER by id ASC', (error, result)=>{
+    pool.query('SELECT * FROM production.category WHERE deleted_at IS NULL ORDER by id ASC', (error, result)=>{
         if (error) {
             throw error
         }
@@ -57,6 +65,17 @@ const deleteCategory = (request, response) => {
     const id = parseInt(request.params.id)
     const now = new Date()
     pool.query('UPDATE  production.category SET deleted_at = $1 WHERE id = $2', [now,id], (error, results) => {
+      if (error) {
+        throw error
+      }
+      response.status(200).send(`Category with ID: ${id} has been deleted`)
+    })
+  }
+
+  const hardDeleteCategory = (request, response) => {
+    const id = parseInt(request.params.id)
+    const now = new Date()
+    pool.query('DELETE FROM production.category WHERE id = $1', [id], (error, results) => {
       if (error) {
         throw error
       }
@@ -241,10 +260,12 @@ const deleteRole = (request, response) => {
 
 module.exports = {
     getCategory,
+    getAllCategory,
     getCategoryById,
     createCategory,
     updateCategory,
     deleteCategory,
+    hardDeleteCategory,
     
     getProduct,
     getProductById,

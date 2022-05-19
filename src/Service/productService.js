@@ -17,3 +17,12 @@ export async function createProduct(data) {
       })
     return await response.json();
 }
+
+export async function deleteProduct(id) {
+    const response = await fetch(`http://localhost:3000/product/${id}`, {
+        method: 'DELETE',
+        mode:'cors',
+        headers: {'Content-Type': 'application/json','Accept': 'application/json'},
+      })
+    return await response.json();
+}

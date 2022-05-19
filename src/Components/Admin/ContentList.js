@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
-const ContentList = ({ title, result}) => {
+const ContentList = ({ title, result, actionDelete }) => {
+
     return (
         <div>
             {title ? <h3>{title}</h3> : <h3>Dashboard</h3>}
@@ -22,11 +23,15 @@ const ContentList = ({ title, result}) => {
                     <tbody>
                         {result.map((value) => {
                             const { id, name } = value
-                            return <tr>
+                            return <tr key={id}>
 
                                 <td>{id}</td>
                                 <td>{name}</td>
-                                <td><button type="button" class="btn btn-primary"></button></td>
+                                <td>
+                                    <button type="button" class="btn btn-warning">Update</button>
+                                    <span className='m-2' />
+                                    <button type="button" class="btn btn-danger" onClick={() => { actionDelete(id)}}>Delete</button>
+                                </td>
                             </tr>
                         })}
                     </tbody>

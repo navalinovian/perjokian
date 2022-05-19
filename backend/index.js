@@ -17,10 +17,13 @@ app.listen(port, () => {
 })
 
 app.get('/category', db.getCategory)
+app.get('/all-categories', db.getAllCategory)
 app.get('/category/:id', db.getCategoryById)
 app.post('/category', db.createCategory)
 app.put('/category/:id', db.updateCategory)
 app.delete('/category/:id', db.deleteCategory)
+app.delete('/del-category/:id', db.hardDeleteCategory)
+
 
 app.get('/product', db.getProduct)
 app.get('/product/:uuid', db.getProductById)

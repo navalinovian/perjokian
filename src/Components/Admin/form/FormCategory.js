@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { createCategories } from '../../../Service/categoryService';
+import { createCategory } from '../../../Service/categoryService';
 const FormCategory = () => {
     const [formData, setFormData] = useState({
         name:''
@@ -8,7 +8,7 @@ const FormCategory = () => {
     const { name } = formData
     const formSubmit = () => {
         console.log(1);
-        createCategories(formData).then((res) => {
+        createCategory(formData).then((res) => {
             setSuccess(true);
         })
     }
