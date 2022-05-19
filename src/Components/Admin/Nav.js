@@ -9,9 +9,7 @@ const Nav=({adminSidebar})=> {
                 </a>
                 <ul className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                     <li className="nav-item">
-                        <a href="/#" className="nav-link align-middle px-0">
-                            <i className="fs-4 bi-house"></i> <span className="ms-1 d-none d-sm-inline">Home</span>
-                        </a>
+                        <button type="button" onClick={()=>{adminSidebar('Add Data')}} class="btn btn-primary">Add Data</button>
                     </li>
                     <li>
                         <a href="/#submenu1" data-bs-toggle="collapse" className="nav-link px-0 align-middle">
@@ -26,7 +24,7 @@ const Nav=({adminSidebar})=> {
                         </ul>
                     </li>
                     <li>
-                        <a href="#/" onClick={()=>{adminSidebar('categories')}}  className="nav-link px-0 align-middle">
+                        <a href="#/" onClick={()=>{adminSidebar('Categories')}}  className="nav-link px-0 align-middle">
                             <i className="fs-4 bi-table"></i> <span className="ms-1 d-none d-sm-inline">Categories</span></a>
                     </li>
                     <li>
@@ -42,7 +40,7 @@ const Nav=({adminSidebar})=> {
                         </ul>
                     </li>
                     <li>
-                        <a href="#/" onClick={()=>{adminSidebar('product')}} className="nav-link px-0 align-middle">
+                        <a href="#/" onClick={()=>{adminSidebar('Products')}} className="nav-link px-0 align-middle">
                             <i className="fs-4 bi-grid"></i> <span className="ms-1 d-none d-sm-inline">Products</span> </a>
                     </li>
                     <li>

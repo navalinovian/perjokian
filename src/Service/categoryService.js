@@ -10,10 +10,12 @@ export async function getAllCategories() {
 }
 
 export async function createCategories(data) {
-    const response = await fetch(`/category`, {
+    console.log(data.name);
+    const response = await fetch(`http://localhost:3000/category`, {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({user: data})
+        mode: 'cors',
+        headers: {'Content-Type': 'application/json','Accept': 'application/json'},
+        body: JSON.stringify({name: data.name})
       })
     return await response.json();
 }
