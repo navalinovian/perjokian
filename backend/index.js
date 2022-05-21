@@ -4,6 +4,7 @@ const port = 3000
 const db = require('./queries.js')
 var bodyParser = require('body-parser')
 const cors = require("cors");
+const {sequelize, Category} = require('./models')
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -12,11 +13,22 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+app.listen(port, async () => {
+  console.log(`Album Store app listening on port ${port}`)
+  await sequelize.authenticate()  
+  console.log('Database Connected!');
 })
 
-app.get('/category', db.getCategory)
+app.get('/category', async(req, res)=>{
+  try {
+    const categories = await Category.findAll()
+
+    return res.json(categories)
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({error:'Something went wrong'})
+  }
+})
 app.get('/all-categories', db.getAllCategory)
 app.get('/category/:id', db.getCategoryById)
 app.post('/category', db.createCategory)

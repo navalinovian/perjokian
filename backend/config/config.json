@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "postgre",
+    "password": "1q2w3e4r",
+    "database": "albumstore",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "postgre",
+    "password": "1q2w3e4r",
+    "database": "albumstore",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "postgre",
+    "password": "1q2w3e4r",
+    "database": "albumstore",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
