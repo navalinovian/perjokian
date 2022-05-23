@@ -4,7 +4,7 @@ const port = 3000
 const db = require('./queries.js')
 var bodyParser = require('body-parser')
 const cors = require("cors");
-const { sequelize, Category } = require('./models')
+const { sequelize, Category, Product } = require('./models')
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -30,9 +30,9 @@ app.get('/category', async (req, res) => {
   }
 })
 
-app.get('/all-categories', async(req, res)=>{
+app.get('/all-categories', async (req, res) => {
   try {
-    const categories = await Category.findAll({paranoid:false})
+    const categories = await Category.findAll({ paranoid: false })
     return res.json(categories)
   } catch (error) {
     console.log(error);
@@ -85,12 +85,12 @@ app.put('/category/:id', async (req, res) => {
     return res.status(500).json({ error: 'Something went wrong' })
   }
 })
-app.delete('/category/:id', async(req, res)=>{
+app.delete('/category/:id', async (req, res) => {
   const id = req.params.id
   try {
     const category = await Category.destroy({
-      where:{
-        id:id
+      where: {
+        id: id
       }
     })
     return res.json(category)
@@ -99,14 +99,14 @@ app.delete('/category/:id', async(req, res)=>{
     return res.status(500).json({ error: 'Something went wrong' })
   }
 })
-app.delete('/del-category/:id', async (req,res)=>{
+app.delete('/del-category/:id', async (req, res) => {
   const id = req.params.id
   try {
     const category = await Category.destroy({
-      where:{
-        id:id
+      where: {
+        id: id
       },
-      force:true
+      force: true
     })
     return res.json(category)
   } catch (error) {
@@ -116,11 +116,98 @@ app.delete('/del-category/:id', async (req,res)=>{
 })
 
 
-app.get('/product', db.getProduct)
-app.get('/product/:uuid', db.getProductById)
-app.post('/product', db.createProduct)
-app.put('/product/:uuid', db.updateProduct)
-app.delete('/product/:uuid', db.deleteProduct)
+app.get('/product', async (req, res) => {
+  try {
+    const products = await Product.findAll({
+      include: [Category]
+    })
+
+    return res.json(products)
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: 'Something went wrong' })
+  }
+})
+
+app.get('/product/:uuid', async (req, res) => {
+  const uuid = req.params.uuid
+  try {
+    const product = await Product.findOne({
+      where: {
+        id: uuid
+      },
+      include: [Category]
+    })
+
+    return res.json(product)
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: 'Something went wrong' })
+  }
+})
+
+app.post('/product', async (req, res) => {
+  const { name, price, stock, category_id } = req.body
+  try {
+    const category = await Category.findOne({
+      where: {
+        id: category_id
+      }
+    })
+
+    const product = await Product.create({
+      name: name,
+      price: price,
+      stock: stock,
+      categoryId: category_id
+    },{
+      include:[Category]
+    })
+    return res.json(product)
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: 'Something went wrong' })
+  }
+})
+
+app.put('/product/:uuid', async (req, res) => {
+  const id = req.params.uuid
+  const { name, price, stock, category_id } = req.body
+  try {
+    const category = await Category.findOne({
+      where: {
+        id: category_id
+      }
+    })
+
+    const product = await Product.update({
+      name: name,
+      price: price,
+      stock: stock,
+      categoryId: category_id
+    },{where:{
+      id:id
+    }})
+    return res.json(product)
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: 'Something went wrong' })
+  }
+})
+app.delete('/product/:uuid', async (req,res)=>{
+  const id = req.params.uuid
+  try {
+    const product = await Product.destroy({
+      where: {
+        id: id
+      }
+    })
+    return res.json(product)
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: 'Something went wrong' })
+  }
+})
 
 app.get('/user', db.getUser)
 app.get('/user/:uuid', db.getUserById)
