@@ -6,44 +6,50 @@ const Category = () => {
     const [categories, setCategories] = useState([]);
     const [cart, setCart] = useState([]);
     const [product, setProduct] = useState([]);
-    // const filterResult = (catItem) => {
-    //     const result = Categories.filter((curData) => {
-    //         return curData.category === catItem;
-    //     });
-    //     setData(result);
-    // }
-    const handleAddCart = (item) => {
+    const [display, setDisplay] = useState([]);
+    const [totalCart, setTotalCart] = useState(0);
+    const filterResult = async (catItem) => {
+        await setDisplay(product);
+        const result = await display.filter((curData) => {
+            return curData.category_id === catItem;
+        });
+        await setProduct(result);
+    }
+    const handleAddCart = async (item) => {
         const index = cart.findIndex(element => element.id === item.id)//cek sudah ada item belum
         if (index !== -1) {
-            let hardCopy = [...cart]
-            let selectedItem = cart[index]
-            hardCopy = hardCopy.filter((element) => element.id !== item.id);
+            let hardCopy = await [...cart]
+            let selectedItem = await cart[index]
+            hardCopy = await hardCopy.filter((element) => element.id !== item.id);
             selectedItem.amount = selectedItem.amount += 1
-            hardCopy.push(selectedItem)
-            setCart(hardCopy)
+            await hardCopy.push(selectedItem)
+            await setCart(hardCopy)
         } else {
             item.amount = 1
-            setCart([...cart, item])
+            await setCart([...cart, item])
         }
+        const total = await Object.values(cart).reduce((total, value) => total + (value.price * value.amount), 0)
+        await setTotalCart(total)
     }
 
 
     useEffect(() => {
         getAllCategories().then((res) => {
             setCategories(res);
-        }).catch((err)=>{
+        }).catch((err) => {
             console.log(err);
         })
-        getAllProducts().then((res)=>{
+        getAllProducts().then((res) => {
             setProduct(res);
+            setDisplay(res);
             console.log(res);
-        }).catch((err)=>{
+        }).catch((err) => {
             console.log(err);
         })
-    },[]);
+    }, []);
     useEffect(() => {
     }, [categories, product])
-    
+
 
     return (
         <>
@@ -52,14 +58,14 @@ const Category = () => {
                 <div className="row mt-5 mx-2">
                     <div className="col-md-3">
                         {categories.map((values) => {
-                            const { name } = values;
+                            const { id, name } = values;
                             return (
                                 <>
-                                    <button className="btn btn-warning w-100 mb-4">{name}</button>
+                                    <button className="btn btn-warning w-100 mb-4" onClick={() => filterResult(id)} >{name}</button>
                                 </>
                             )
                         })}
-                        
+
                         {/* <button className="btn btn-warning w-100 mb-4" onClick={() => filterResult('Wanita')}>Wanita</button>
                         <button className="btn btn-warning w-100 mb-4" onClick={() => filterResult('Anak-anak')}>Anak-anak</button>
                         <button className="btn btn-warning w-100 mb-4" onClick={() => filterResult('Sepatu')}>Sepatu</button>
@@ -79,7 +85,7 @@ const Category = () => {
                                         </div>
                                         <div className="modal-body">
                                             {cart.map((values) => {
-                                                const { id,name, price } = values;
+                                                const { id, name, price, amount } = values;
                                                 return (
                                                     <>
                                                         <div className="col" key={id}>
@@ -87,14 +93,15 @@ const Category = () => {
                                                                 <div className="card-body">
                                                                     <h5 className="card -title">{name}</h5>
                                                                     <p>Price :{price}</p>
-                                                                    {/* <p>Amount :{amount}</p> */}
+                                                                    <p>Amount :{amount}</p>
+                                                                    <p>Subtotal :{price*amount}</p>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </>
                                                 )
                                             })}
-                                            <h5>Total: </h5>
+                                            <h5>Total: {totalCart}</h5>
                                         </div>
                                         <div className="modal-footer">
                                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -104,7 +111,7 @@ const Category = () => {
                                 </div>
                             </div>
 
-                            {product.map((values) => {
+                            {display.map((values) => {
                                 const { id, name, price } = values;
                                 return (
                                     <>
