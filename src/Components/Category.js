@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import Categories from "./Categories";
-import { getAllCategories, createCategories } from "../Service/categoryService";
+import React, { useEffect, useReducer, useState } from "react";
+// import Categories from "./Categories";
+import { getAllCategories } from "../Service/categoryService";
 import { getAllProducts } from "../Service/productService";
 const Category = () => {
     const [categories, setCategories] = useState([]);
@@ -9,29 +9,29 @@ const Category = () => {
     const [display, setDisplay] = useState([]);
     const [totalCart, setTotalCart] = useState(0);
     const filterResult = async (catItem) => {
-        await setDisplay(product);
+        setDisplay(product);
         const result = await display.filter((curData) => {
             return curData.category_id === catItem;
         });
-        await setProduct(result);
+        setProduct(result);
     }
     const handleAddCart = async (item) => {
-        const index = cart.findIndex(element => element.id === item.id)//cek sudah ada item belum
+        const index = await cart.findIndex(element => element.id === item.id)//cek sudah ada item belum
         if (index !== -1) {
             let hardCopy = await [...cart]
             let selectedItem = await cart[index]
-            hardCopy = await hardCopy.filter((element) => element.id !== item.id);
+            hardCopy = hardCopy.filter((element) => element.id !== item.id);
             selectedItem.amount = selectedItem.amount += 1
-            await hardCopy.push(selectedItem)
-            await setCart(hardCopy)
+            hardCopy.push(selectedItem)
+            setCart(hardCopy)
         } else {
             item.amount = 1
             await setCart([...cart, item])
         }
-        const total = await Object.values(cart).reduce((total, value) => total + (value.price * value.amount), 0)
-        await setTotalCart(total)
+        
+        
+        
     }
-
 
     useEffect(() => {
         getAllCategories().then((res) => {
@@ -42,18 +42,20 @@ const Category = () => {
         getAllProducts().then((res) => {
             setProduct(res);
             setDisplay(res);
-            console.log(res);
         }).catch((err) => {
             console.log(err);
         })
+
     }, []);
     useEffect(() => {
-    }, [categories, product])
+        const total = cart.reduce((totalPrice, item) => totalPrice + (item.price * item.amount), 0);
+        setTotalCart(total)        
+    }, [categories, product, cart, totalCart])
 
 
     return (
         <>
-            <h1 className="text-center text-info">Let's Shop!</h1>
+            <h1 className="text-center text-info">Let's Shop! </h1>
             <div className="container-fluid mx-2">
                 <div className="row mt-5 mx-2">
                     <div className="col-md-3">
@@ -66,11 +68,6 @@ const Category = () => {
                             )
                         })}
 
-                        {/* <button className="btn btn-warning w-100 mb-4" onClick={() => filterResult('Wanita')}>Wanita</button>
-                        <button className="btn btn-warning w-100 mb-4" onClick={() => filterResult('Anak-anak')}>Anak-anak</button>
-                        <button className="btn btn-warning w-100 mb-4" onClick={() => filterResult('Sepatu')}>Sepatu</button>
-                        <button className="btn btn-warning w-100 mb-4" onClick={() => filterResult('Tas')}>Tas</button> */}
-                        {/* <button className="btn btn-warning w-100 mb-4" onClick={() => setData(Categories)}>ALL</button> */}
                         <button className="btn btn-primary w-100 mb-4" data-bs-toggle="modal" data-bs-target="#exampleModal">Cart {cart.length}</button>
                     </div>
                     <div className="col-md-9">
@@ -94,14 +91,14 @@ const Category = () => {
                                                                     <h5 className="card -title">{name}</h5>
                                                                     <p>Price :{price}</p>
                                                                     <p>Amount :{amount}</p>
-                                                                    <p>Subtotal :{price*amount}</p>
+                                                                    <p>Subtotal :{price * amount}</p>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </>
                                                 )
                                             })}
-                                            <h5>Total: {totalCart}</h5>
+                                            <h5>Total:{totalCart}</h5>
                                         </div>
                                         <div className="modal-footer">
                                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
