@@ -20,15 +20,3 @@ app.listen(port, async () => {
   await sequelize.authenticate()
   console.log('Database Connected!');
 })
-
-app.get('/user', db.getUser)
-app.get('/user/:uuid', db.getUserById)
-app.post('/user', db.createUser)
-app.patch('/user/:uuid', db.updateUser)
-app.delete('/user/:uuid', db.deleteUser)
-
-app.get('/role', db.getRole)
-app.get('/role/:id', db.getRoleById)
-app.post('/role', db.createRole)
-app.put('/role/:id', db.updateRoleById)
-app.delete('/role/:id', db.deleteRole)
