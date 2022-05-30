@@ -1,5 +1,6 @@
 const express = require('express')
 const { categoryIndex, categoryAll, categoryCreate, categoryUpdate, categorySoftDelete, categoryHardDelete } = require('./controller/CategoryController');
+const { invoiceIndex, paymentCreate, invoiceCreate, invoiceShow } = require('./controller/InvoiceController');
 const { productIndex, productAll, productCreate, productUpdate, productSoftDelete, productHardDelete } = require('./controller/ProductController');
 const { roleIndex, roleShow, roleCreate, roleUpdate, roleSoftDelete } = require('./controller/RoleController');
 const { userIndex, userShow, userCreate, userUpdate, userSoftDelete, login } = require('./controller/UserController');
@@ -32,5 +33,8 @@ router.post('/login', login)
 router.patch('/user/:uuid', userUpdate)
 router.delete('/user/:uuid', userSoftDelete)
 
+router.get('/invoice', invoiceIndex)
+router.post('/invoice', invoiceCreate)
+router.get('/invoice/:uuid', invoiceShow)
 
 module.exports = router
