@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React from 'react'
 
 const ContentList = ({ title, result, actionDelete }) => {
 

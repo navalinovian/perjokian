@@ -1,6 +1,6 @@
 export async function getAllCategories() {
     try{
-        const response = await fetch('http://localhost:3000/category');
+        const response = await fetch('http://localhost:3000/api/category');
         // console.log(await response.json());
         return await response.json();
     }catch(error) {
@@ -10,7 +10,7 @@ export async function getAllCategories() {
 }
 
 export async function createCategory(data) {
-    const response = await fetch(`http://localhost:3000/category`, {
+    const response = await fetch(`http://localhost:3000/api/category`, {
         method: 'POST',
         mode: 'cors',
         headers: {'Content-Type': 'application/json','Accept': 'application/json'},
@@ -20,7 +20,7 @@ export async function createCategory(data) {
 }
 
 export async function deleteCategory(id) {    
-    const response = await fetch(`http://localhost:3000/category/${id}`, {
+    const response = await fetch(`http://localhost:3000/api/category/${id}`, {
         method: 'DELETE',
         mode: 'cors',
         headers: {'Content-Type': 'application/json','Accept': 'application/json'},

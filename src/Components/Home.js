@@ -1,13 +1,15 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 // import Categories from "./Categories";
 import { getAllCategories } from "../Service/categoryService";
 import { getAllProducts } from "../Service/productService";
-const Category = () => {
+const Home = () => {
     const [categories, setCategories] = useState([]);
     const [cart, setCart] = useState([]);
     const [product, setProduct] = useState([]);
     const [display, setDisplay] = useState([]);
     const [totalCart, setTotalCart] = useState(0);
+    let navigate = useNavigate();
     const filterResult = async (catItem) => {
         setDisplay(product);
         const result = await display.filter((curData) => {
@@ -28,9 +30,10 @@ const Category = () => {
             item.amount = 1
             await setCart([...cart, item])
         }
-        
-        
-        
+    }
+
+    const handleOrder = async(orders)=>{
+        navigate('/order-detail', {state:orders})
     }
 
     useEffect(() => {
@@ -102,7 +105,7 @@ const Category = () => {
                                         </div>
                                         <div className="modal-footer">
                                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            <button type="button" className="btn btn-primary">Checkout</button>
+                                            <button type="button" className="btn btn-primary" onClick={()=> handleOrder(cart)}>Checkout</button>
                                         </div>
                                     </div>
                                 </div>
@@ -119,7 +122,7 @@ const Category = () => {
                                                     <h5 className="card -title">{name}</h5>
                                                     <p>Price :{price}</p>
                                                     <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                                    <button className="btn btn-dark">Buy Now</button>
+                                                    <button className="btn btn-dark" onClick={()=> handleOrder([values])}>Buy Now</button>
                                                     <button className="btn btn-dark" onClick={() => handleAddCart(values)} style={{ marginLeft: '10px' }}>Add to Cart</button>
                                                 </div>
                                             </div>
@@ -134,4 +137,4 @@ const Category = () => {
         </>
     )
 }
-export default Category;
+export default Home;

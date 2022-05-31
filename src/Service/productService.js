@@ -1,6 +1,6 @@
 export async function getAllProducts() {
     try{
-        const response = await fetch('http://localhost:3000/product');
+        const response = await fetch('http://localhost:3000/api/product');
         // console.log(await response.json());
         return await response.json();
     }catch(error) {
@@ -19,7 +19,7 @@ export async function createProduct(data) {
 }
 
 export async function deleteProduct(id) {
-    const response = await fetch(`http://localhost:3000/product/${id}`, {
+    const response = await fetch(`http://localhost:3000/api/product/${id}`, {
         method: 'DELETE',
         mode:'cors',
         headers: {'Content-Type': 'application/json','Accept': 'application/json'},

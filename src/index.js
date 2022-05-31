@@ -7,13 +7,17 @@ import reportWebVitals from './reportWebVitals';
 import "bootstrap/dist/js/bootstrap.min.js";
 import { BrowserRouter, Routes, Route, } from "react-router-dom";
 import Admin from './Components/Admin/Admin';
+import Payment from './Components/Payment';
+import OrderDetail from './Components/OrderDetail';
 
 const rootElement = document.getElementById('root');
 ReactDOM.render(
   <BrowserRouter>
     <Routes>
       <Route exact path="/" element={<App />} />
-      <Route path='/admin' element={<Admin/>} />
+      <Route exact path='/admin' element={<Admin/>} />
+      <Route exact path="/payment" element={<Payment/>} />
+      <Route exact path="/order-detail" element={<OrderDetail/>} />
     </Routes>
   </BrowserRouter>,
   rootElement

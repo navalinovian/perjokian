@@ -1,12 +1,11 @@
-import logo from './logo.svg';
 import './App.css';
-import Category from './Components/Category';
 import React from 'react';
+import Home from './Components/Home';
 
 const App = () => {
   return (
     <>
-      <Category />
+      <Home />
     </>
   )
 }
