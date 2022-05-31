@@ -3,10 +3,7 @@ const { Invoice, InvoiceItem, User, Product, Category } = require("../models");
 
 exports.invoiceIndex = async (req, res) => {
     try {
-        const invoice = await Invoice.findOne({
-            where: {
-                id: uuid
-            },
+        const invoices = await Invoice.findAll({
             include: {
                 model: Product,
                 attributes: ['id','name', 'price'],
