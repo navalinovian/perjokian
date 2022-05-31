@@ -86,7 +86,7 @@ const deleteCategory = (request, response) => {
    /* PRODUCTS */
 
 const getProduct = (request, response) =>{
-    pool.query('SELECT * FROM production.product ORDER by id ASC', (error, result)=>{
+    pool.query('SELECT * FROM production.product WHERE deleted_at IS NULL ORDER by id ASC', (error, result)=>{
         if (error) {
             throw error
         }
