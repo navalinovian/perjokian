@@ -8,7 +8,7 @@ exports.categoryIndex = async (req, res) => {
         return res.json(categories)
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: 'Something went wrong' })
+        return res.status(500).json(error.errors)
     }
 }
 
@@ -19,7 +19,7 @@ exports.categoryAll =  async (req, res) => {
         return res.json(categories)
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: 'Something went wrong' })
+        return res.status(500).json(error.errors)
     }
 }
 
@@ -32,7 +32,7 @@ exports.categoryShow = async (req, res) => {
         return res.json(categories)
     } catch (error) {
         console.log(error);
-        return res.status(404).json({ error: 'Not Found!' })
+        return res.status(404).json(error.errors)
     }
 }
 
@@ -46,7 +46,7 @@ exports.categoryCreate = async (req, res) => {
         return res.json(category)
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: 'Something went wrong' })
+        return res.status(500).json(error.errors)
     }
 }
 
@@ -66,7 +66,7 @@ exports.categoryUpdate =  async (req, res) => {
         return res.json(category)
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: 'Something went wrong' })
+        return res.status(500).json(error.errors)
     }
 }
 
@@ -81,7 +81,7 @@ exports.categorySoftDelete =  async (req, res) => {
         return res.json(category)
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: 'Something went wrong' })
+        return res.status(500).json(error.errors)
     }
 }
 
@@ -97,6 +97,6 @@ exports.categoryHardDelete = async (req, res) => {
         return res.json(category)
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: 'Something went wrong' })
+        return res.status(500).json(error.errors)
     }
 }
