@@ -2,14 +2,20 @@ import React, { useEffect, useState } from 'react'
 import { createCategory } from '../../../Service/categoryService';
 const FormCategory = () => {
     const [formData, setFormData] = useState({
-        name:''
+        id:null,
+        name: null
     })
     const [success, setSuccess] = useState(false)
-    const { name } = formData
-    const formSubmit = () => {
+    const { name,id } = formData
+    const formSubmit = event => {
+        event.preventDefault();
         console.log(1);
         createCategory(formData).then((res) => {
-            setSuccess(true);
+            if (!res.error) {
+                setSuccess(true)
+                setFormData({ name: '', id:'' })
+            }
+            console.log(res);
         })
     }
     const handleChange = (event) => {
@@ -22,25 +28,35 @@ const FormCategory = () => {
         });
     }
     useEffect(() => {
-      
+        const timeId = setTimeout(() => {
+            setSuccess(false);
+        }, 5000)
+
+        return () => {
+            clearTimeout(timeId)
+          }
     }, [formData])
-    
-    
+
+
     return (
         <div>
-            <form onSubmit={()=>formSubmit()}>
+            <form onSubmit={formSubmit}>
                 <div className="form-group">
-                    <label for="">Name</label>
-                    <input type="text" className="form-control" name="name" id="name" onChange={handleChange} value={name} aria-describedby="helpId" placeholder="" />
+                    <label htmlFor='Id'>Id</label>
+                    <input type="number" className="form-control" name="id" id="id" onChange={handleChange} value={id} aria-describedby="helpId" placeholder="" />
+                </div>
+                <div className="form-group">
+                    <label htmlFor='Name'>Name</label>
+                    <input type="text" className="form-control" name="name" id="name" onChange={handleChange} value={name} aria-describedby="helpId" placeholder="" required/>
                 </div>
                 <button type="submit" className="btn btn-primary">Submit</button>
-                
-                
+
+
             </form>
-            {success?<div className="alert alert-warning alert-dismissible fade show" role="alert">
-                    <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-                    <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>:null}
+            {success ? <div className="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+                <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div> : null}
         </div>
     )
 }

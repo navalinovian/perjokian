@@ -14,7 +14,7 @@ export async function createCategory(data) {
         method: 'POST',
         mode: 'cors',
         headers: {'Content-Type': 'application/json','Accept': 'application/json'},
-        body: JSON.stringify({name: data.name})
+        body: JSON.stringify({id:data.id ,name: data.name})
       })
     return await response.json();
 }
