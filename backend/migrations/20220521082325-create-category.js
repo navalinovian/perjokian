@@ -1,40 +1,39 @@
 'use strict';
 module.exports = {
-  async up(queryInterface, DataTypes) {
-    await queryInterface.createTable('categories', {
+  async up(queryInterface, Sequelize) {
+    await queryInterface.createTable({tableName:'categories', schema:'production'}, {
       id: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false,
         autoIncrement: true,
       },
       name: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         allowNull:false,
         unique:true
       },
       desc: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         allowNull:true,
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
-        type: DataTypes.DATE
+        type: Sequelize.DATE
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
-        type: DataTypes.DATE
+        type: Sequelize.DATE
       },
-      deletedAt:{
+      deleted_at:{
         allowNull: true,
-        type: DataTypes.DATE
+        type: Sequelize.DATE
       }
     },{
-      schema:'production',
       initialAutoIncrement: 1100,
     });
   },
-  async down(queryInterface, DataTypes) {
-    await queryInterface.dropTable('production.categories',{shcema:'production'});
+  async down(queryInterface, Sequelize) {
+    await queryInterface.dropTable({tableName:'categories', shcema:'production'},{});
   }
 };

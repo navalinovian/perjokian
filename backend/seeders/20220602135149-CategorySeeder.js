@@ -8,7 +8,7 @@ module.exports = {
      *
      * 
     */
-    await queryInterface.bulkInsert({tableName:'category',schema:'production'}, [{
+    await queryInterface.bulkInsert({tableName:'categories',schema:'production'}, [{
       id: '1101',
       name: 'merchandise',
       created_at:new Date(),
@@ -74,7 +74,7 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-     await queryInterface.bulkDelete({tableName:'category',schema:'production'}, null, {});
+     await queryInterface.bulkDelete({tableName:'categories',schema:'production'}, null, {});
      //asf
   }
 };

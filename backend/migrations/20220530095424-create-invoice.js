@@ -1,27 +1,32 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Invoices', {
+    await queryInterface.createTable({tableName:'invoices', schema:'monetary'}, {
       id: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.UUID,
+        defaultValue:Sequelize.fn('gen_random_uuid')
       },
-      id: {
-        type: Sequelize.UUID
+      user_id:{
+        type:Sequelize.UUID,
+        allowNull:false,
+        reference:{
+          model:{
+            tableName:'users',
+            schema:'user'
+          },
+          key:'id'
+        }
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue:Sequelize.NOW
       }
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Invoices');
+    await queryInterface.dropTable({tableName:'invoices', schema:'monetary'});
   }
 };
