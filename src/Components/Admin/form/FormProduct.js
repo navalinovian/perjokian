@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react'
-import { createCategory } from '../../../Service/categoryService';
+import { getAllCategories } from '../../../Service/categoryService';
+import { createProduct } from '../../../Service/productService';
 const FormProduct = () => {
+    const [categories, setCategories] = useState([]);
     const [formData, setFormData] = useState({
         name: '',
         price: null,
         stock: null,
-        category:''
+        category: null
     })
     const [success, setSuccess] = useState(false)
     const { name, price, stock, category } = formData
     const formSubmit = () => {
         console.log(1);
-        createCategory(formData).then((res) => {
+        createProduct(formData).then((res) => {
             setSuccess(true);
         })
     }
@@ -25,7 +27,11 @@ const FormProduct = () => {
         });
     }
     useEffect(() => {
-
+        getAllCategories().then((res) => {
+            setCategories(res);
+        }).catch((err) => {
+            console.log(err);
+        })
     }, [formData])
 
 
@@ -52,7 +58,12 @@ const FormProduct = () => {
                 </div>
                 <div className="form-group">
                     <label htmlFor='price'>Category</label>
-                    <input type="number" className="form-control" name="category" id="category" onChange={handleChange} value={category} aria-describedby="helpId" placeholder="" />
+                    <select className="form-control" name="category" id="category">
+                        {categories.map((category) => (
+                            <option value={category.id}>{category.name}</option>
+                        ))}
+                    </select>
+                    {/* <input type="number" className="form-control" name="category" id="category" onChange={handleChange} value={category} aria-describedby="helpId" placeholder="" /> */}
                 </div>
                 <button type="submit" className="btn btn-primary">Submit</button>
 
