@@ -4,7 +4,7 @@ import { createProduct } from '../../../Service/productService';
 const FormProduct = () => {
     const [categories, setCategories] = useState([]);
     const [formData, setFormData] = useState({
-        name: '',
+        name: null,
         price: null,
         stock: null,
         category: null
@@ -17,7 +17,7 @@ const FormProduct = () => {
         createProduct(formData).then((res) => {
             if (!res.error) {
                 setSuccess(true)
-                setFormData({ name: '', id:'' })
+                setFormData({ name: null, price:null, stock:null, category:null })
             }
         })
     }
