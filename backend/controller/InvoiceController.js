@@ -20,7 +20,7 @@ exports.invoiceIndex = async (req, res) => {
         return res.json(invoices)
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: 'Something went wrong' })
+        return res.status(500).json(error.errors)
     }
 }
 
@@ -48,7 +48,7 @@ exports.invoiceShow = async (req, res) => {
         return res.json(invoice)
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: 'Something went wrong' })
+        return res.status(404).json(error.errors)
     }
 }
 
@@ -81,7 +81,7 @@ exports.invoiceCreate = async (request, res) => {
         return res.json(invoice)
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: 'Something went wrong' })
+        return res.status(500).json(error.errors)
     }
 }
 

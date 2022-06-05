@@ -7,7 +7,7 @@ exports.roleIndex = async (req, res) => {
         return res.json(roles)
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: 'Something went wrong' })
+        return res.status(500).json(error.errors)
     }
 }
 
@@ -18,7 +18,7 @@ exports.roleAll = async (req, res) => {
         return res.json(roles)
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: 'Something went wrong' })
+        return res.status(500).json(error.errors)
     }
 }
 
@@ -34,7 +34,7 @@ exports.roleShow = async (req, res) => {
         return res.json(role)
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: 'Something went wrong' })
+        return res.status(404).json(error.errors)
     }
 }
 
@@ -48,7 +48,7 @@ exports.roleCreate = async (request, res) => {
         return res.json(role)
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: 'Something went wrong' })
+        return res.status(500).json(error.errors)
     }
 }
 
@@ -66,7 +66,7 @@ exports.roleUpdate = async (req, res) => {
         return res.json(role)
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: 'Something went wrong' })
+        return res.status(500).json(error.errors)
     }
 }
 
@@ -81,7 +81,7 @@ exports.roleSoftDelete = async (req, res) => {
         return res.json(role)
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: 'Something went wrong' })
+        return res.status(500).json(error.errors)
     }
 }
 
@@ -97,6 +97,6 @@ exports.roleHardDelete = async (req, res) => {
         return res.json(role)
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: 'Something went wrong' })
+        return res.status(500).json(error.errors)
     }
 }

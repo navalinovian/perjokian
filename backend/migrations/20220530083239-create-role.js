@@ -1,30 +1,40 @@
 'use strict';
+
+
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Roles', {
+    await queryInterface.createTable({tableName:'roles', schema:'user'}, {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      id: {
-        type: Sequelize.UUID
-      },
       name: {
+        unique:true,
+        allowNull:false,
         type: Sequelize.STRING
       },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
+      desc:{
+        type: Sequelize.STRING
       },
-      updatedAt: {
+      created_at: {
+        allowNull: false,
+        type: Sequelize.DATE,
+        defaultValue:Sequelize.NOW
+      },
+      updated_at: {
+        allowNull: true,
+        type: Sequelize.DATE,
+        defaultValue:Sequelize.NOW
+      },
+      deleted_at: {
         allowNull: false,
         type: Sequelize.DATE
       }
-    });
+    },{initialAutoIncrement: 2200});
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Roles');
+    await queryInterface.dropTable({tableName:'roles', schema:'user'});
   }
 };
