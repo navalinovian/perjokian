@@ -10,10 +10,10 @@ export async function getAllProducts() {
 }
 
 export async function createProduct(data) {
-    const response = await fetch(`/product`, {
+    const response = await fetch('http://localhost:3000/api/product', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({user: data})
+        body: JSON.stringify({name: data.name, price:data.price, stock:data.stock, category_id:data.category})
       })
     return await response.json();
 }
