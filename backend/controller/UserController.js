@@ -9,7 +9,7 @@ exports.userIndex = async (req, res) => {
         return res.json(users)
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: 'Something went wrong' })
+        return res.status(500).json(error.errors)
     }
 }
 
@@ -20,7 +20,7 @@ exports.userAll = async (req, res) => {
         return res.json(users)
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: 'Something went wrong' })
+        return res.status(500).json(error.errors)
     }
 }
 
@@ -43,7 +43,7 @@ exports.login = async (req, res) => {
 
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: 'Something went wrong' })
+        return res.status(500).json(error.errors)
     }
 }
 
@@ -59,7 +59,7 @@ exports.userShow = async (req, res) => {
         return res.json(user)
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: 'Something went wrong' })
+        return res.status(500).json(error.errors)
     }
 }
 
@@ -75,7 +75,7 @@ exports.userCreate = async (request, res) => {
         return res.json(user)
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: 'Something went wrong' })
+        return res.status(500).json(error.errors)
     }
 }
 
@@ -94,7 +94,7 @@ exports.userUpdate = async (req, res) => {
         return res.json(user)
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: 'Something went wrong' })
+        return res.status(500).json(error.errors)
     }
 }
 
@@ -109,7 +109,7 @@ exports.userSoftDelete = async (req, res) => {
         return res.json(user)
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: 'Something went wrong' })
+        return res.status(500).json(error.errors)
     }
 }
 
@@ -125,6 +125,6 @@ exports.userHardDelete = async (req, res) => {
         return res.json(user)
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: 'Something went wrong' })
+        return res.status(500).json(error.errors)
     }
 }

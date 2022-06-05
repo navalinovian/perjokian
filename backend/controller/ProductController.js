@@ -9,7 +9,7 @@ exports.productIndex = async (req, res) => {
         return res.json(products)
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: 'Something went wrong' })
+        return res.status(500).json(error.errors)
     }
 }
 
@@ -20,7 +20,7 @@ exports.productAll = async (req, res) => {
         return res.json(products)
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: 'Something went wrong' })
+        return res.status(500).json(error.errors)
     }
 }
 
@@ -37,7 +37,7 @@ exports.productShow = async (req, res) => {
         return res.json(product)
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: 'Something went wrong' })
+        return res.status(404).json(error.errors)
     }
 }
 
@@ -59,7 +59,7 @@ exports.productCreate = async (request, res) => {
         return res.json(product)
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: 'Something went wrong' })
+        return res.status(500).json(error.errors)
     }
 }
 
@@ -86,7 +86,7 @@ exports.productUpdate = async (req, res) => {
         return res.json(product)
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: 'Something went wrong' })
+        return res.status(500).json(error.errors)
     }
 }
 
@@ -101,7 +101,7 @@ exports.productSoftDelete = async (req, res) => {
         return res.json(product)
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: 'Something went wrong' })
+        return res.status(500).json(error.errors)
     }
 }
 
@@ -117,6 +117,6 @@ exports.productHardDelete = async (req, res) => {
         return res.json(product)
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: 'Something went wrong' })
+        return res.status(500).json(error.errors)
     }
 }

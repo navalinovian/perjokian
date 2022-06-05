@@ -1,35 +1,55 @@
 'use strict';
+
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Products', {
+    await queryInterface.createTable({tableName:'products', schema:'production'}, {
       id: {
         allowNull: false,
+        defaultValue: Sequelize.fn('gen_random_uuid'),
         primaryKey: true,
-        type: Sequelize.UUID
+        type: Sequelize.UUID,
       },
       name: {
-        type: Sequelize.STRING
+        allowNull: false,
+        type: Sequelize.STRING,
+        unique: true
       },
       price: {
-        type: Sequelize.INTEGER
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        defaultValue: 0
       },
       stock: {
-        type: Sequelize.INTEGER
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        defaultValue: 0
       },
       category_id: {
-        type: Sequelize.INTEGER
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references:{
+          model:{
+            tableName:'categories',
+            schema:'production'
+          },
+          key:'id'
+        }
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
+        type: Sequelize.DATE
+      },
+      deleted_at: {
+        allowNull: true,
         type: Sequelize.DATE
       }
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Products');
+    await queryInterface.dropTable({tableName:'products', schema:'production'});
   }
 };
