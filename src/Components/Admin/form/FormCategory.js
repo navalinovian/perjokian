@@ -15,7 +15,6 @@ const FormCategory = () => {
                 setSuccess(true)
                 setFormData({ name: '', id:'' })
             }
-            console.log(res);
         })
     }
     const handleChange = (event) => {

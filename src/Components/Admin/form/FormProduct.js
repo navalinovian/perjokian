@@ -11,10 +11,14 @@ const FormProduct = () => {
     })
     const [success, setSuccess] = useState(false)
     const { name, price, stock, category } = formData
-    const formSubmit = () => {
+    const formSubmit = (event) => {
+        event.preventDefault();
         console.log(1);
         createProduct(formData).then((res) => {
-            setSuccess(true);
+            if (!res.error) {
+                setSuccess(true)
+                setFormData({ name: '', id:'' })
+            }
         })
     }
     const handleChange = (event) => {
@@ -37,7 +41,7 @@ const FormProduct = () => {
 
     return (
         <div>
-            <form onSubmit={() => formSubmit()}>
+            <form onSubmit={formSubmit}>
                 <div className="form-group">
                     <label for="">Name</label>
                     <input type="text" className="form-control" name="name" id="name" onChange={handleChange} value={name} aria-describedby="helpId" placeholder="" />
@@ -58,9 +62,9 @@ const FormProduct = () => {
                 </div>
                 <div className="form-group">
                     <label htmlFor='price'>Category</label>
-                    <select className="form-control" name="category" id="category">
+                    <select className="form-control" name="category" id="category" onChange={handleChange}>
                         {categories.map((category) => (
-                            <option value={category.id}>{category.name}</option>
+                            <option key={category.id} value={category.id}>{category.name}</option>
                         ))}
                     </select>
                     {/* <input type="number" className="form-control" name="category" id="category" onChange={handleChange} value={category} aria-describedby="helpId" placeholder="" /> */}
