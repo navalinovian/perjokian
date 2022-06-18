@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Nav from './Nav'
 import { getAllCategories, deleteCategory, updateCategory, getCategoriesById } from "../../Service/categoryService";
-import { getAllProducts, deleteProduct } from "../../Service/productService";
+import { getAllProducts, deleteProduct, getProductsById } from "../../Service/productService";
 import ContentList from './ContentList';
 import AddData from './AddData';
 import './Admin.css'
@@ -65,10 +65,9 @@ function Admin() {
                 })
                 break;
             case 'Products':
-                deleteProduct(id);
-                break;
-            case 'Add Data':
-                setIsAddData(true);
+                getProductsById(id).then((res)=>{
+                    setDataUpdate(res);
+                })
                 break;
             default:
                 break;

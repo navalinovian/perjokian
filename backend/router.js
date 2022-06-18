@@ -1,7 +1,7 @@
 const express = require('express')
 const { categoryIndex, categoryAll, categoryCreate, categoryUpdate, categorySoftDelete, categoryHardDelete, categoryShow } = require('./controller/CategoryController');
 const { invoiceIndex, paymentCreate, invoiceCreate, invoiceShow } = require('./controller/InvoiceController');
-const { productIndex, productAll, productCreate, productUpdate, productSoftDelete, productHardDelete } = require('./controller/ProductController');
+const { productIndex, productAll, productCreate, productUpdate, productSoftDelete, productHardDelete, productShow } = require('./controller/ProductController');
 const { roleIndex, roleShow, roleCreate, roleUpdate, roleSoftDelete } = require('./controller/RoleController');
 const { userIndex, userShow, userCreate, userUpdate, userSoftDelete, login } = require('./controller/UserController');
 const router = express.Router()
@@ -15,6 +15,7 @@ router.delete('/category/:id', categorySoftDelete);
 router.delete('/del-category/:id', categoryHardDelete);
 
 router.get('/product', productIndex);
+router.get('/product/:uuid', productShow);
 router.get('/all-product', productAll);
 router.post('/product', productCreate);
 router.put('/product/:uuid', productUpdate);

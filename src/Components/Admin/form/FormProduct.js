@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { getAllCategories } from '../../../Service/categoryService';
-import { createProduct } from '../../../Service/productService';
-const FormProduct = () => {
+import { createProduct, updateProduct } from '../../../Service/productService';
+const FormProduct = ({data}) => {
     const [categories, setCategories] = useState([]);
     const [formData, setFormData] = useState({
+        id:null,
         name: null,
         price: null,
         stock: null,
@@ -21,6 +22,17 @@ const FormProduct = () => {
             }
         })
     }
+
+    const formUpdate = (event) => {
+        event.preventDefault();
+        updateProduct(formData).then((res) => {
+            if (!res.error) {
+                setSuccess(true)
+                setFormData({id:null, name: '', price:'', stock:'', category:'' })
+            }
+        })
+    }
+
     const handleChange = (event) => {
         const { name, value } = event.target;
         setFormData((prevState) => {
@@ -38,10 +50,22 @@ const FormProduct = () => {
         })
     }, [formData])
 
+    useEffect(() => {
+        if (data) {
+            setFormData({
+                id:data.id,
+                name:data.name,
+                price:data.price,
+                stock:data.stock,
+                category:data.category
+            })
+        }
+    }, [])
+
 
     return (
         <div>
-            <form onSubmit={formSubmit}>
+            <form onSubmit={data? formUpdate : formSubmit}>
                 <div className="form-group">
                     <label for="">Name</label>
                     <input type="text" className="form-control" name="name" id="name" onChange={handleChange} value={name} aria-describedby="helpId" placeholder="" />
@@ -62,7 +86,7 @@ const FormProduct = () => {
                 </div>
                 <div className="form-group">
                     <label htmlFor='price'>Category</label>
-                    <select className="form-control" name="category" id="category" onChange={handleChange}>
+                    <select className="form-control" name="category" id="category" value={category} onChange={handleChange}>
                         {categories.map((category) => (
                             <option key={category.id} value={category.id}>{category.name}</option>
                         ))}

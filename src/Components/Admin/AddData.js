@@ -9,7 +9,7 @@ const AddData = ({ title, data }) => {
             case 'Categories':
                 return <FormCategory data={data}/>
             case 'Products':
-                return <FormProduct/>
+                return <FormProduct data={data}/>
             default:
                 break;
         }
