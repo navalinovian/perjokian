@@ -1,0 +1,12 @@
+.nav{
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 900;
+}
+
+.navbar .nav {
+    float: none;
+}
+
+.nav > li > a:hover{
+    background-color:aqua;
+}

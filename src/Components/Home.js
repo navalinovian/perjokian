@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // import Categories from "./Categories";
 import { getAllCategories } from "../Service/categoryService";
 import { getAllProducts } from "../Service/productService";
+import Nav from "./Nav";
 const Home = () => {
     const [categories, setCategories] = useState([]);
     const [cart, setCart] = useState([]);
@@ -58,6 +59,7 @@ const Home = () => {
 
     return (
         <>
+            <Nav/>
             <h1 className="text-center text-info">Let's Shop! </h1>
             <div className="container-fluid mx-2">
                 <div className="row mt-5 mx-2">
@@ -70,6 +72,7 @@ const Home = () => {
                                 </>
                             )
                         })}
+                        <Link to="/admin">admin</Link>
 
                         <button className="btn btn-primary w-100 mb-4" data-bs-toggle="modal" data-bs-target="#exampleModal">Cart {cart.length}</button>
                     </div>

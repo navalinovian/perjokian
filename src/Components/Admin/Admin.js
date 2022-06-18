@@ -4,6 +4,7 @@ import { getAllCategories, deleteCategory } from "../../Service/categoryService"
 import { getAllProducts, deleteProduct } from "../../Service/productService";
 import ContentList from './ContentList';
 import AddData from './AddData';
+import './Admin.css'
 function Admin() {
     const [result, setResult] = useState([]);
     const [title, setTitle] = useState('');
