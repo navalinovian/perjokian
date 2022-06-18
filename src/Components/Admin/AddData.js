@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react'
 import FormCategory from './form/FormCategory'
 import FormProduct from './form/FormProduct';
 
-const AddData = ({ title, result }) => {
+const AddData = ({ title, data }) => {
     const [selection, setSelection] = useState(null);
     const onSelect=(selection)=>{
         switch (selection) {
             case 'Categories':
-                return <FormCategory/>
+                return <FormCategory data={data}/>
             case 'Products':
                 return <FormProduct/>
             default:
@@ -16,7 +16,9 @@ const AddData = ({ title, result }) => {
     }
 
     useEffect(() => {
-      
+        if (data) {
+            setSelection(title)
+        }
     }, [selection])
     
     return (

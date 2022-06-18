@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { createCategory } from '../../../Service/categoryService';
-const FormCategory = () => {
+import { createCategory, updateCategory } from '../../../Service/categoryService';
+const FormCategory = ({data}) => {
     const [formData, setFormData] = useState({
         id:null,
         name: null
@@ -17,6 +17,17 @@ const FormCategory = () => {
             }
         })
     }
+
+    const formUpdate = event => {
+        event.preventDefault();
+        updateCategory(formData).then((res) => {
+            if (!res.error) {
+                setSuccess(true)
+                setFormData({ name: '', id:'' })
+            }
+        })
+    }
+
     const handleChange = (event) => {
         const { name, value } = event.target;
         setFormData((prevState) => {
@@ -36,13 +47,22 @@ const FormCategory = () => {
           }
     }, [formData])
 
+    useEffect(() => {
+        if (data) {
+            setFormData({
+                id:data.id,
+                name:data.name
+            })
+        }
+    }, [])
+
 
     return (
         <div>
-            <form onSubmit={formSubmit}>
+            <form onSubmit={data? formUpdate :formSubmit}>
                 <div className="form-group">
                     <label htmlFor='Id'>Id</label>
-                    <input type="number" className="form-control" name="id" id="id" onChange={handleChange} value={id} aria-describedby="helpId" placeholder="" />
+                    <input type="number" className="form-control" name="id" id="id" onChange={handleChange} value={id} aria-describedby="helpId" placeholder="" disabled={data?true:false}/>
                 </div>
                 <div className="form-group">
                     <label htmlFor='Name'>Name</label>

@@ -9,7 +9,7 @@ const Nav = ({ adminSidebar }) => {
                         <span className="d-flex justify-content-center">Menu</span>
                     </a>
                     <ul className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                        <li className="nav-item">
+                        <li className="nav-item x-grid">
                             <button type="button" onClick={() => { adminSidebar('Add Data') }} class="btn btn-primary">Add Data</button>
                         </li>
                         <li>

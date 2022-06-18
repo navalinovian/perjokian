@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Nav from './Nav'
-import { getAllCategories, deleteCategory } from "../../Service/categoryService";
+import { getAllCategories, deleteCategory, updateCategory, getCategoriesById } from "../../Service/categoryService";
 import { getAllProducts, deleteProduct } from "../../Service/productService";
 import ContentList from './ContentList';
 import AddData from './AddData';
@@ -9,6 +9,7 @@ function Admin() {
     const [result, setResult] = useState([]);
     const [title, setTitle] = useState('');
     const [isAddData, setIsAddData] = useState(false);
+    const [dataUpdate, setDataUpdate] = useState({});
     const adminSidebar = (input) => {
         setTitle(input);
         switch (input) {
@@ -56,6 +57,25 @@ function Admin() {
         
     }
 
+    const actionUpdate = (id) => {
+        switch (title) {
+            case 'Categories':
+                getCategoriesById(id).then((res)=>{
+                    setDataUpdate(res);
+                })
+                break;
+            case 'Products':
+                deleteProduct(id);
+                break;
+            case 'Add Data':
+                setIsAddData(true);
+                break;
+            default:
+                break;
+        }
+        
+    }
+
     const alertAction = (data) => {
         return <div className="alert alert-warning alert-dismissible fade show" role="alert">
             <strong>{data}</strong> You should check in on some of those fields below.
@@ -67,6 +87,14 @@ function Admin() {
     }, [])
 
     useEffect(() => {
+                    
+        if (dataUpdate) {
+            setIsAddData(true)
+        }
+    }, [dataUpdate])
+    
+
+    useEffect(() => {
     }, [result])
     return (
         <div>
@@ -74,7 +102,7 @@ function Admin() {
                 <div className='row'>
                     <Nav adminSidebar={adminSidebar} />
                     <div className="col py-3">
-                        {isAddData ? <AddData /> : <ContentList title={title} result={result} actionDelete={actionDelete} />}
+                        {isAddData ? <AddData data={dataUpdate} title={title}/> : <ContentList title={title} result={result} actionDelete={actionDelete} actionUpdate={actionUpdate} />}
                     </div>
                 </div>
             </div>

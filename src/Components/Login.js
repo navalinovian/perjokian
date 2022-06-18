@@ -32,7 +32,6 @@ const Login = () => {
             }else{
                 navigate('/')
             }
-            
         }
     };
 

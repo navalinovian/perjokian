@@ -1,5 +1,5 @@
 const express = require('express')
-const { categoryIndex, categoryAll, categoryCreate, categoryUpdate, categorySoftDelete, categoryHardDelete } = require('./controller/CategoryController');
+const { categoryIndex, categoryAll, categoryCreate, categoryUpdate, categorySoftDelete, categoryHardDelete, categoryShow } = require('./controller/CategoryController');
 const { invoiceIndex, paymentCreate, invoiceCreate, invoiceShow } = require('./controller/InvoiceController');
 const { productIndex, productAll, productCreate, productUpdate, productSoftDelete, productHardDelete } = require('./controller/ProductController');
 const { roleIndex, roleShow, roleCreate, roleUpdate, roleSoftDelete } = require('./controller/RoleController');
@@ -7,6 +7,7 @@ const { userIndex, userShow, userCreate, userUpdate, userSoftDelete, login } = r
 const router = express.Router()
 
 router.get('/category', categoryIndex);
+router.get('/category/:id', categoryShow);
 router.get('/all-category', categoryAll);
 router.post('/category', categoryCreate);
 router.put('/category/:id', categoryUpdate);

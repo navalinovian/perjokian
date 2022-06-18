@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ContentList = ({ title, result, actionDelete }) => {
+const ContentList = ({ title, result, actionDelete, actionUpdate }) => {
 
     return (
         <div>
@@ -28,7 +28,7 @@ const ContentList = ({ title, result, actionDelete }) => {
                                 <td>{id}</td>
                                 <td>{name}</td>
                                 <td>
-                                    <button type="button" class="btn btn-warning">Update</button>
+                                    <button type="button" class="btn btn-warning" onClick={() => { actionUpdate(id)}}>Update</button>
                                     <span className='m-2' />
                                     <button type="button" class="btn btn-danger" onClick={() => { actionDelete(id)}}>Delete</button>
                                 </td>
