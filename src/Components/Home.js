@@ -11,12 +11,16 @@ const Home = () => {
     const [display, setDisplay] = useState([]);
     const [totalCart, setTotalCart] = useState(0);
     let navigate = useNavigate();
+    const duplicateDisplay = async () =>{
+        setDisplay(product)
+        console.log('dijalankan');
+    }
     const filterResult = async (catItem) => {
-        setDisplay(product);
         const result = await display.filter((curData) => {
-            return curData.category_id === catItem;
+            return curData.categoryId === catItem;
         });
-        setProduct(result);
+        console.log('Result', result);
+        setDisplay(result);
     }
     const handleAddCart = async (item) => {
         const index = await cart.findIndex(element => element.id === item.id)//cek sudah ada item belum

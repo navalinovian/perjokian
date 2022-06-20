@@ -1,15 +1,14 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable({tableName:'invoice_items', schema:'monetary'}, {
+    await queryInterface.createTable({tableName:'invoice_items'}, {
       product_id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
         reference:{
           model:{
-            tablename:'products',
-            schema:'production'
+            tablename:'products'
           },
           key:'id'
         }
@@ -20,8 +19,7 @@ module.exports = {
         type:Sequelize.UUID,
         reference:{
           model:{
-            tableName:'invoices',
-            schema:'monetary'
+            tableName:'invoices'
           },
           key:'id'
         }
@@ -32,6 +30,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable({tableName:'invoice_items', schema:'monetary'});
+    await queryInterface.dropTable({tableName:'invoice_items'});
   }
 };

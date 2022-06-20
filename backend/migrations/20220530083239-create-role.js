@@ -3,7 +3,7 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable({tableName:'roles', schema:'user'}, {
+    await queryInterface.createTable({tableName:'roles'}, {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -35,6 +35,6 @@ module.exports = {
     },{initialAutoIncrement: 2200});
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable({tableName:'roles', schema:'user'});
+    await queryInterface.dropTable({tableName:'roles'});
   }
 };

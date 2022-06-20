@@ -2,10 +2,11 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable({tableName:'products', schema:'production'}, {
+    await queryInterface.createTable({tableName:'products'}, {
       id: {
         allowNull: false,
-        defaultValue: Sequelize.fn('gen_random_uuid'),
+        // defaultValue: Sequelize.fn('gen_random_uuid'), //postgre
+        defaultValue: Sequelize.fn('UUID'), //mysql
         primaryKey: true,
         type: Sequelize.UUID,
       },
@@ -30,7 +31,6 @@ module.exports = {
         references:{
           model:{
             tableName:'categories',
-            schema:'production'
           },
           key:'id'
         }
@@ -50,6 +50,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable({tableName:'products', schema:'production'});
+    await queryInterface.dropTable({tableName:'products'});
   }
 };

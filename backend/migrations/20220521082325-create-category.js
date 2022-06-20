@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable({tableName:'categories', schema:'production'}, {
+    await queryInterface.createTable({tableName:'categories'}, {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,

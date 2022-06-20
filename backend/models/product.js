@@ -53,8 +53,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Product',
-    schema:'production',
-    tableName:'product',
+    tableName:'products',
     timestamps:true,
     paranoid:true,
     underscored:true,

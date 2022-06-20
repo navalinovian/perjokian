@@ -41,8 +41,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Invoice',
-    schema:'monetary',
-    tableName:'invoice',
+    tableName:'invoices',
     timestamps:true,
     updatedAt:false,
     underscored:true,

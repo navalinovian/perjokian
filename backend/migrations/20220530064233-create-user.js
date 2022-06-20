@@ -2,12 +2,13 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable({tableName:'users', schema:'user'}, {
+    await queryInterface.createTable({tableName:'users'}, {
       id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
-        defaultValue: Sequelize.fn('gen_random_uuid')
+        // defaultValue: Sequelize.fn('gen_random_uuid'),
+        defaultValue: Sequelize.fn('UUID'), //mysql
       },
       username: {
         type: Sequelize.STRING,
@@ -23,8 +24,7 @@ module.exports = {
         allowNull:false,
         reference:{
           model:{
-            tableName:'roles',
-            schema:'user'
+            tableName:'roles'
           },
           key:'id'
         }
@@ -46,6 +46,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable({tableName:'users', schema:'user'});
+    await queryInterface.dropTable({tableName:'users'});
   }
 };

@@ -12,7 +12,7 @@ module.exports = {
      * }], {});
     */
 
-    await queryInterface.bulkInsert({ tableName: 'products', schema: 'production' }, [{
+    await queryInterface.bulkInsert({ tableName: 'products' }, [{
       name: 'V by Maroon5',
       stock:121,
       price:150000,
@@ -59,6 +59,6 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
      */
 
-     await queryInterface.bulkDelete({tableName:'products',schema:'production'}, null, {});
+     await queryInterface.bulkDelete({tableName:'products'}, null, {});
   }
 };
